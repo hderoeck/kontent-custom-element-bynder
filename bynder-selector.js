@@ -198,7 +198,8 @@ function bynderOnSuccess(assets, additionalInfo)
   asset = assets[0];
   //alert(JSON.stringify(asset));
 
-  updateValue(asset);
+  
+  CustomElement.setValue(JSON.stringify(asset));
   renderBynderAsset(asset);
 
 }
