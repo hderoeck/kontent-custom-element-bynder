@@ -190,6 +190,27 @@ function initCustomElement() {
   }
 }
 
+
+function initCustomElementv2() {
+  try {
+    CustomElement.init((element, _context) => {
+      // Setup with initial value and disabled state
+      config = element.config || {};
+      updateDisabled(element.disabled);
+      setupSelector(element.value);
+      updateSize();
+    });
+
+    // React on disabled changed (e.g. when publishing the item)
+    CustomElement.onDisabledChanged(updateDisabled);
+  } catch (err) {
+    // Initialization with Kentico Custom element API failed (page displayed outside of the Kentico UI)
+    console.error(err);
+    setupSelector();
+    updateDisabled(true);
+  }
+}
+
 function openBynder(){
   BynderCompactView.open({
     language: "en_US",
@@ -232,4 +253,4 @@ function openBynder(){
   });
 };
 
-initCustomElement();
+initCustomElementv2();
