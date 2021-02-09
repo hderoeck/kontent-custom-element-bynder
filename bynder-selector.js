@@ -167,13 +167,14 @@ function initCustomElement() {
       // Setup with initial value and disabled state
       config = element.config || {};
 
-      var compactViewUrl = 'https://d8ejoa1fys2rk.cloudfront.net/5.0.5/modules/compactview/bynder-compactview-2-latest.js';
+      //const compactViewUrl = 'https://d8ejoa1fys2rk.cloudfront.net/5.0.5/modules/compactview/bynder-compactview-2-latest.js';
+      const compactViewUrl = 'https://d8ejoa1fys2rk.cloudfront.net/5.0.5/modules/compactview/includes/js/client-1.4.0.min.js';
       // https://developer-docs.bynder.com/ui-components
       if (config.bynderUrl) {
         $('#bynder-compactview').attr('data-defaultEnvironment', config.bynderUrl);
       }
       $('body').append(
-        '<script type="text/javascript" src="' + compactViewUrl + '"></script>'
+        '<script type="text/javascript" src="'+compactViewUrl+'"></script>'
       );
 
       updateDisabled(element.disabled);
