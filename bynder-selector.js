@@ -115,6 +115,8 @@ function setupSelector(value) {
     // The selected assets are found in the event detail property
     const selectedAssets = e.detail;
     const selectedAsset = selectedAssets[0];
+
+    alert(JSON.stringify(selectedAsset));
     
     var images = currentValue;
 
