@@ -49,8 +49,9 @@ function updateValue(asset) {
   if (!isDisabled) {
     if (asset && asset.length) {
       currentValue = asset;
+      alert('Setting value of CustomElement to ');
+      alert(JSON.stringify(asset));
       CustomElement.setValue(JSON.stringify(asset));
-      renderSelected(asset);
     }
     else {
       currentValue = null;
@@ -168,16 +169,10 @@ function initCustomElement() {
   }
 }
 
-function bynderOnSuccess(assets, additionalInfo) 
+function renderBynderAsset(asset)
 {
   var importedAssetsContainer = document.getElementById("importedAsset");
   importedAssetsContainer.innerHTML = "";
-
-  asset = assets[0];
-  //alert(JSON.stringify(asset));
-
-  updateValue(asset);
-
   switch (asset.type) {
     case "IMAGE":
       importedAssetsContainer.innerHTML +=
@@ -197,6 +192,17 @@ function bynderOnSuccess(assets, additionalInfo)
         "</video>";
       break;
   }
+
+}
+
+function bynderOnSuccess(assets, additionalInfo) 
+{
+  asset = assets[0];
+  //alert(JSON.stringify(asset));
+
+  updateValue(asset);
+  renderBynderAsset(asset);
+
 }
 
 
