@@ -298,7 +298,7 @@ function openBynder()
     assetTypes: ["IMAGE", "VIDEO", "DOCUMENT"],
     // With `container` set, CV is mounted inside given DOM element
     // instead of opening as a modal dialog.
-    container: document.getElementById("bynder-compactview"),
+    container: document.getElementById("bynder-compactview-v2"),
     portal: { url: "", editable: "" },
     // Selected assets are passed to given `onSuccess` callback which
     // replaces `BynderAddMedia` event.
