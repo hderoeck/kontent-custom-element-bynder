@@ -222,7 +222,7 @@ function openBynder(){
     mode: "SingleSelectFile",
     onSuccess: function(assets, additionalInfo) {
       var importedAssetsContainer = document.getElementById(
-        "selectedv2"
+        "bynder-selected"
       );
       importedAssetsContainer.innerHTML = "Hello World <br />";
 
