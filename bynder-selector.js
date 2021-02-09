@@ -234,6 +234,7 @@ function openBynder(){
         case "IMAGE":
           importedAssetsContainer.innerHTML +=
             "<img src=" + additionalInfo.selectedFile.url + " />";
+          importedAssetsContainer.innerHTML +=
             "<img src=" + asset.files.webImage.url + " />";
           return;
         case "AUDIO":
