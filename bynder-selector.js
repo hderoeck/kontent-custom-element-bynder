@@ -174,6 +174,8 @@ function bynderOnSuccess(assets, additionalInfo)
   importedAssetsContainer.innerHTML = "";
 
   asset = assets[0];
+  alert(JSON.stringify(assets));
+  alert(JSON.stringify(asset));
 
   switch (asset.type) {
     case "IMAGE":
