@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
@@ -9,7 +8,6 @@
     <!-- Kentico Custom elements API-->
     <script src="https://app.kontent.ai/js-api/custom-element/v1/custom-element.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-    <script src="https://d8ejoa1fys2rk.cloudfront.net/5.0.5/modules/compactview/bynder-compactview-2-latest.js"></script>
     <script src="bynder-selector.js"></script>
     <style>
       body {
@@ -133,67 +131,31 @@
         vertical-align: middle;
         border: 0;
       }
-
     </style>
   </head>
   <body>
     <!-- Custom element HTML -->
     <div class="selector">
       <button class="clear" type="button">Clear</button>
-      <button class="clear" type="button" id="cv-trigger">Add image</button>
-      <div id="bynder-compactview"></div>
-      <div id="importedAssets"></div>
+      <div
+        id="bynder-compactview"
+        data-assetTypes="image"
+        data-autoload="false"
+        data-button="Add images"
+        data-collections="true"
+        data-defaultEnvironment=""
+        data-fullScreen="false"
+        data-header="true"
+        data-language="en_US"
+        data-mode="multi"
+        data-zindex="300"
+      ></div>
+      <img class="logo" src="bynder_logo.png" alt="Bynder" title="Bynder" />
     </div>
-    
-
-    <div id="bynder-selected" class="selected"></div>
-    <script>
-    function onSuccess(assets, additionalInfo) {
-      var importedAssetsContainer = document.getElementById("importedAssets");
-      importedAssetsContainer.innerHTML = "";
-
-        asset = selectedAssets[i];
-
-        switch (asset.type) {
-          case "IMAGE":
-            importedAssetsContainer.innerHTML +=
-              "<img src=" + additionalInfo.selectedFile.url + " />";
-            break;
-          case "AUDIO":
-          case "DOCUMENT":
-            importedAssetsContainer.innerHTML +=
-              "<img src=" + asset.files.webImage.url + " />";
-            break;
-          case "VIDEO":
-            importedAssetsContainer.innerHTML +=
-              '<video width="640" height="480" controls>' +
-              '<source src="' +
-              asset.previewUrls[0] +
-              '" type="video/webm">' +
-              "</video>";
-            break;
-        }
-      }
-
-      document
-        .getElementById("cv-trigger")
-        .addEventListener("click", function() {
-          BynderCompactView.open({
-            language: "en_US",
-            // Renamed from "multi".
-            mode: "SingleSelectFile",
-            assetTypes: ["IMAGE", "VIDEO", "DOCUMENT"],
-            // With `container` set, CV is mounted inside given DOM element
-            // instead of opening as a modal dialog.
-            container: document.getElementById("bynder-compactview"),
-            portal: { url: "", editable: "" },
-            // Selected assets are passed to given `onSuccess` callback which
-            // replaces `BynderAddMedia` event.
-            // `additionalInfo` argument is only relevant when `mode` is set to
-            // `SingleSelectFile`.
-            onSuccess: onSuccess
-          });
-        });
-    </script>
+    <div class="spacer"></div>
+    <div class="title">
+      <div class="text"></div>
+    </div>
+    <div class="selected"></div>
   </body>
 </html>
