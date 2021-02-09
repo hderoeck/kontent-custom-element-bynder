@@ -97,14 +97,15 @@ function imageTile($parent, item, remove) {
 
 function setupSelector(value) {
   alert('renderSelected');
-  
+
   $('.clear').click(function() {
     updateValue(null);
   });
 
   if (value) {
     currentValue = JSON.parse(value);
-    renderSelected(currentValue);
+    renderBynderAsset(currentValue);
+    //renderSelected(currentValue);
   }
   else {
     renderSelected(null);
