@@ -170,12 +170,13 @@ function initCustomElement() {
 
 function bynderOnSuccess(assets, additionalInfo) 
 {
-  var importedAssetsContainer = document.getElementById("importedAssets");
+  var importedAssetsContainer = document.getElementById("importedAsset");
   importedAssetsContainer.innerHTML = "";
 
   asset = assets[0];
-  alert(JSON.stringify(assets));
+  alert(asset.type);
   alert(JSON.stringify(asset));
+
 
   switch (asset.type) {
     case "IMAGE":
