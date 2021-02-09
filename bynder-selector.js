@@ -220,7 +220,7 @@ function openBynder(){
     mode: "SingleSelectFile",
     onSuccess: function(assets, additionalInfo) {
       var importedAssetsContainer = document.getElementById(
-        "bynder-compactview"
+        "selected"
       );
       importedAssetsContainer.innerHTML = "";
 
