@@ -2,7 +2,16 @@ var currentValue = null;
 var isDisabled = true;
 var config = null;
 
-// Test
+
+function testIterateOverProperties(obj)
+{
+  for (var prop in obj) {
+    if (Object.prototype.hasOwnProperty.call(obj, prop)) {
+        alert(prop + " = " + obj.prop);
+    }
+  }
+}
+
 
 function updateDisabled(disabled) {
   const elements = $(".selector").add(".remove").add(".spacer");
@@ -121,6 +130,7 @@ function setupSelector(value) {
 
     for (var i = 0; i < selectedAssets.length; i++) {
       const asset = selectedAssets[i];
+      testIterateOverProperties(asset);
       switch (asset.type) {
         case 'image':
           // Avoid duplicates
