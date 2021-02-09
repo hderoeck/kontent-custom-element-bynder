@@ -5,11 +5,14 @@ var config = null;
 
 function testIterateOverProperties(obj)
 {
+  var output;
   for (var prop in obj) {
     if (Object.prototype.hasOwnProperty.call(obj, prop)) {
-        alert(prop + " = " + obj.prop);
+        output += prop + " = " +  obj.prop + " -- ";
     }
   }
+  //alert(output);
+  alert(JSON.stringify(obj));
 }
 
 
