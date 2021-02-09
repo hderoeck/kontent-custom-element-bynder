@@ -158,6 +158,11 @@ function initCustomElement() {
       $('body').append(
         '<script type="text/javascript" src="https://d8ejoa1fys2rk.cloudfront.net/modules/compactview/includes/js/client-1.4.0.min.js"></script>'
       );
+      
+      $('body').append(
+        '<script  type="text/javascript" src="https://d8ejoa1fys2rk.cloudfront.net/5.0.5/modules/compactview/bynder-compactview-2-latest.js"></script>'
+      );
+      
 
       updateDisabled(element.disabled);
       setupSelector(element.value);
