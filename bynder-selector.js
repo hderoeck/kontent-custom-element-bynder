@@ -96,6 +96,8 @@ function imageTile($parent, item, remove) {
 }
 
 function setupSelector(value) {
+  alert('renderSelected');
+  
   $('.clear').click(function() {
     updateValue(null);
   });
