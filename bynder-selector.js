@@ -226,4 +226,4 @@ function initCustomElement_v2() {
   }
 }
 
-initCustomElement_v2();
+initCustomElement();
