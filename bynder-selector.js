@@ -286,28 +286,26 @@ function onSuccess(assets, additionalInfo) {
   }
 }
 
-function openBynder(){
-  document
-  .getElementById("cv-trigger")
-  .addEventListener("click", function() {
-    BynderCompactView.open({
-      language: "en_US",
-      theme: {
-        colorButtonPrimary: "#3380FF"
-      },
-      // Renamed from "multi".
-      mode: "SingleSelectFile",
-      assetTypes: ["IMAGE", "VIDEO", "DOCUMENT"],
-      // With `container` set, CV is mounted inside given DOM element
-      // instead of opening as a modal dialog.
-      container: document.getElementById("bynder-compactview"),
-      portal: { url: "", editable: "" },
-      // Selected assets are passed to given `onSuccess` callback which
-      // replaces `BynderAddMedia` event.
-      // `additionalInfo` argument is only relevant when `mode` is set to
-      // `SingleSelectFile`.
-      onSuccess: onSuccess
-    });
+document
+.getElementById("cv-trigger")
+.addEventListener("click", function() {
+  BynderCompactView.open({
+    language: "en_US",
+    theme: {
+      colorButtonPrimary: "#3380FF"
+    },
+    // Renamed from "multi".
+    mode: "SingleSelectFile",
+    assetTypes: ["IMAGE", "VIDEO", "DOCUMENT"],
+    // With `container` set, CV is mounted inside given DOM element
+    // instead of opening as a modal dialog.
+    container: document.getElementById("bynder-compactview"),
+    portal: { url: "", editable: "" },
+    // Selected assets are passed to given `onSuccess` callback which
+    // replaces `BynderAddMedia` event.
+    // `additionalInfo` argument is only relevant when `mode` is set to
+    // `SingleSelectFile`.
+    onSuccess: onSuccess
   });
-}
+});
 
