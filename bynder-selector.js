@@ -189,41 +189,47 @@ function initCustomElement() {
     updateDisabled(true);
   }
 }
-function initCustomElement_v2() {
-  try {
-    CustomElement.init((element, _context) => {
-      // Setup with initial value and disabled state
-      config = element.config || {};
 
-      const compactViewUrl = 'https://d8ejoa1fys2rk.cloudfront.net/5.0.5/modules/compactview/bynder-compactview-2-latest.js';
-      // https://developer-docs.bynder.com/ui-components
-      if (config.bynderUrl) {
-        $('#bynder-compactview').attr('data-defaultEnvironment', config.bynderUrl);
-      }
-      $('body').append(
-        '<script type="text/javascript" src="'+compactViewUrl+'"></script>'
+function openBynder(){
+  BynderCompactView.open({
+    language: "en_US",
+    theme: {
+      colorButtonPrimary: "#3380FF"
+    },
+    mode: "SingleSelectFile",
+    onSuccess: function(assets, additionalInfo) {
+      var importedAssetsContainer = document.getElementById(
+        "bynder-compactview"
       );
-      $('body').append('BynderCompactView.open({');
-      $('body').append('          onSuccess: function (assets) {');
-      $('body').append('                 /* Do something with given asset array */ ');
-      $('body').append('           },');
-      $('body').append('           defaultDomain: "'+config.bynderUrl+'",');
-      $('body').append('           /* ... other options ... */');
-      $('body').append('})');
+      importedAssetsContainer.innerHTML = "";
 
-      updateDisabled(element.disabled);
-      setupSelector(element.value);
-      updateSize();
-    });
+      var asset = assets[0];
 
-    // React on disabled changed (e.g. when publishing the item)
-    CustomElement.onDisabledChanged(updateDisabled);
-  } catch (err) {
-    // Initialization with Kentico Custom element API failed (page displayed outside of the Kentico UI)
-    console.error(err);
-    setupSelector();
-    updateDisabled(true);
-  }
-}
+      console.log(asset, additionalInfo);
+
+      switch (asset.type) {
+        case "IMAGE":
+          importedAssetsContainer.innerHTML +=
+            "<img src=" + additionalInfo.selectedFile.url + " />";
+          return;
+        case "AUDIO":
+        case "DOCUMENT":
+          importedAssetsContainer.innerHTML +=
+            "<img src=" + asset.files.webImage.url + " />";
+          return;
+        case "VIDEO":
+          importedAssetsContainer.innerHTML +=
+            '<video width="640" height="480" controls>' +
+            '<source src="' +
+            asset.previewUrls[0] +
+            '" type="video/webm">' +
+            "</video>";
+          return;
+        default:
+          return;
+      }
+    }
+  });
+};
 
 initCustomElement();

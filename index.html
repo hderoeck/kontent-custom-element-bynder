@@ -141,47 +141,7 @@
       <button class="clear" type="button" onclick="openBynder()">Add image</button>
       <script src="https://d8ejoa1fys2rk.cloudfront.net/5.0.5/modules/compactview/bynder-compactview-2-latest.js"></script>
     <script>
-      function openBynder(){
-      BynderCompactView.open({
-        language: "en_US",
-        theme: {
-          colorButtonPrimary: "#3380FF"
-        },
-        mode: "SingleSelectFile",
-        onSuccess: function(assets, additionalInfo) {
-          var importedAssetsContainer = document.getElementById(
-            "importedAssets"
-          );
-          importedAssetsContainer.innerHTML = "";
-
-          var asset = assets[0];
-
-          console.log(asset, additionalInfo);
-
-          switch (asset.type) {
-            case "IMAGE":
-              importedAssetsContainer.innerHTML +=
-                "<img src=" + additionalInfo.selectedFile.url + " />";
-              return;
-            case "AUDIO":
-            case "DOCUMENT":
-              importedAssetsContainer.innerHTML +=
-                "<img src=" + asset.files.webImage.url + " />";
-              return;
-            case "VIDEO":
-              importedAssetsContainer.innerHTML +=
-                '<video width="640" height="480" controls>' +
-                '<source src="' +
-                asset.previewUrls[0] +
-                '" type="video/webm">' +
-                "</video>";
-              return;
-            default:
-              return;
-          }
-        }
-      });
-    };
+      
     </script>
 
       <div
