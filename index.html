@@ -9,6 +9,7 @@
     <script src="https://app.kontent.ai/js-api/custom-element/v1/custom-element.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
     <script src="bynder-selector.js"></script>
+    <script src="https://d8ejoa1fys2rk.cloudfront.net/5.0.5/modules/compactview/bynder-compactview-2-latest.js"></script>
     <style>
       body {
         margin: 0;
@@ -138,12 +139,9 @@
     <div class="selector">
       <button class="clear" type="button">Clear</button>
       <button class="clear" onclick="openBynder()">Select asset</button>
-
       <img class="logo" src="bynder_logo.png" alt="Bynder" title="Bynder" />
     </div>
     <div class="spacer"></div>
-    <div id="bynder-compactview-v2"></div>
-
     <div class="title">
       <div class="text"></div>
     </div>
@@ -151,22 +149,6 @@
     <div id="importedAssets"></div>
     
     <script>
-    function openBynder()
-    {
-      alert('hello');
-      BynderCompactView.open({
-        language: "en_US",
-        // Renamed from "multi".
-        mode: "SingleSelect",
-        assetTypes: ["IMAGE", "VIDEO", "DOCUMENT"],
-        portal: { url: "", editable: "" },
-        // Selected assets are passed to given `onSuccess` callback which
-        // replaces `BynderAddMedia` event.
-        // `additionalInfo` argument is only relevant when `mode` is set to
-        // `SingleSelectFile`.
-        onSuccess: bynderOnSuccess
-      });
-    }
     </script>
 
   </body>

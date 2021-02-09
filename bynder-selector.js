@@ -198,5 +198,16 @@ function bynderOnSuccess(assets, additionalInfo)
 }
 
 
+function openBynder()
+{
+  alert('hello');
+  BynderCompactView.open({
+    language: "en_US",
+    mode: "SingleSelect",
+    assetTypes: ["IMAGE", "VIDEO", "DOCUMENT"],
+    portal: { url: "", editable: "" },
+    onSuccess: bynderOnSuccess
+  });
+}
       
 initCustomElement();
