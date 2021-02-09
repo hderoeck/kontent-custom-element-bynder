@@ -44,13 +44,13 @@ function renderSelected(images) {
   updateSize();
 }
 
-function updateValue(images) {
+function updateValue(asset) {
   // Send updated value to Kentico (send null in case of the empty string => element will not meet required condition).
   if (!isDisabled) {
-    if (images && images.length) {
-      currentValue = images;
-      CustomElement.setValue(JSON.stringify(images));
-      renderSelected(images);
+    if (asset && asset.length) {
+      currentValue = asset;
+      CustomElement.setValue(JSON.stringify(asset));
+      renderSelected(asset);
     }
     else {
       currentValue = null;
@@ -176,6 +176,7 @@ function bynderOnSuccess(assets, additionalInfo)
   asset = assets[0];
   //alert(JSON.stringify(asset));
 
+  updateValue(asset);
 
   switch (asset.type) {
     case "IMAGE":
