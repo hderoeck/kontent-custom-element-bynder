@@ -182,6 +182,8 @@ function setupSelectorv2(value) {
       fullJSON: JSON.stringify(selectedAsset),
     });
 
+    alert(images);
+
     updateValue(images);
   });
 }
@@ -245,48 +247,67 @@ function initCustomElementv2() {
     setupSelectorv2();
     updateDisabled(true);
   }
+
+  openBynder();
+}
+
+function onSuccess(assets, additionalInfo) {
+  var importedAssetContainer = document.getElementById(
+    "bynder-selected"
+  );
+  importedAssetContainer.innerHTML = "";
+
+  var asset = assets[0];
+
+  console.log(asset, additionalInfo);
+
+  switch (asset.type) {
+    case "IMAGE":
+      importedAssetContainer.innerHTML +=
+        "<img src=" + additionalInfo.selectedFile.url + " />";
+      //importedAssetsContainer.innerHTML +=
+        //"<img src=" + asset.files.webImage.url + " />";
+      return;
+    case "AUDIO":
+    case "DOCUMENT":
+      importedAssetContainer.innerHTML +=
+        "<img src=" + asset.files.webImage.url + " />";
+      return;
+    case "VIDEO":
+      importedAssetContainer.innerHTML +=
+        '<video width="640" height="480" controls>' +
+        '<source src="' +
+        asset.previewUrls[0] +
+        '" type="video/webm">' +
+        "</video>";
+      return;
+    default:
+      return;
+  }
 }
 
 function openBynder(){
-  BynderCompactView.open({
-    language: "en_US",
-    theme: {
-      colorButtonPrimary: "#3380FF"
-    },
-    mode: "SingleSelectFile",
-    onSuccess: function(assets, additionalInfo) {
-      var importedAssetsContainer = document.getElementById(
-        "bynder-selected"
-      );
-      importedAssetsContainer.innerHTML = "";
-
-      var asset = assets[0];
-
-      console.log(asset, additionalInfo);
-
-      switch (asset.type) {
-        case "IMAGE":
-          importedAssetsContainer.innerHTML +=
-            "<img src=" + additionalInfo.selectedFile.url + " />";
-          //importedAssetsContainer.innerHTML +=
-            //"<img src=" + asset.files.webImage.url + " />";
-          return;
-        case "AUDIO":
-        case "DOCUMENT":
-          importedAssetsContainer.innerHTML +=
-            "<img src=" + asset.files.webImage.url + " />";
-          return;
-        case "VIDEO":
-          importedAssetsContainer.innerHTML +=
-            '<video width="640" height="480" controls>' +
-            '<source src="' +
-            asset.previewUrls[0] +
-            '" type="video/webm">' +
-            "</video>";
-          return;
-        default:
-          return;
-      }
-    }
+  document
+  .getElementById("cv-trigger")
+  .addEventListener("click", function() {
+    BynderCompactView.open({
+      language: "en_US",
+      theme: {
+        colorButtonPrimary: "#3380FF"
+      },
+      // Renamed from "multi".
+      mode: "SingleSelectFile",
+      assetTypes: ["IMAGE", "VIDEO", "DOCUMENT"],
+      // With `container` set, CV is mounted inside given DOM element
+      // instead of opening as a modal dialog.
+      container: document.getElementById("bynder-compactview"),
+      portal: { url: "", editable: "" },
+      // Selected assets are passed to given `onSuccess` callback which
+      // replaces `BynderAddMedia` event.
+      // `additionalInfo` argument is only relevant when `mode` is set to
+      // `SingleSelectFile`.
+      onSuccess: onSuccess
+    });
   });
-};
+}
+
