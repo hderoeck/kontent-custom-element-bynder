@@ -286,9 +286,8 @@ function onSuccess(assets, additionalInfo) {
   }
 }
 
-document
-.getElementById("cv-trigger")
-.addEventListener("click", function() {
+function openBynder()
+{
   BynderCompactView.open({
     language: "en_US",
     theme: {
@@ -307,5 +306,4 @@ document
     // `SingleSelectFile`.
     onSuccess: onSuccess
   });
-});
-
+}
