@@ -151,7 +151,23 @@
     <div id="importedAssets"></div>
     
     <script>
-    
+    function openBynder()
+{
+  BynderCompactView.open({
+    language: "en_US",
+    // Renamed from "multi".
+    mode: "SingleSelect",
+    assetTypes: ["IMAGE", "VIDEO", "DOCUMENT"],
+    // With `container` set, CV is mounted inside given DOM element
+    // instead of opening as a modal dialog.
+    portal: { url: "", editable: "" },
+    // Selected assets are passed to given `onSuccess` callback which
+    // replaces `BynderAddMedia` event.
+    // `additionalInfo` argument is only relevant when `mode` is set to
+    // `SingleSelectFile`.
+    onSuccess: bynderOnSuccess
+  });
+}
     </script>
 
   </body>
