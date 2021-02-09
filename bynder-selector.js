@@ -2,6 +2,8 @@ var currentValue = null;
 var isDisabled = true;
 var config = null;
 
+// Test
+
 function updateDisabled(disabled) {
   const elements = $(".selector").add(".remove").add(".spacer");
   if (disabled) {
