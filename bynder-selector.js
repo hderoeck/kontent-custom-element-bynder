@@ -174,14 +174,13 @@ function bynderOnSuccess(assets, additionalInfo)
   importedAssetsContainer.innerHTML = "";
 
   asset = assets[0];
-  alert(asset.type);
-  alert(JSON.stringify(asset));
+  //alert(JSON.stringify(asset));
 
 
   switch (asset.type) {
     case "IMAGE":
       importedAssetsContainer.innerHTML +=
-        "<img src=" + additionalInfo.selectedFile.url + " />";
+        "<img src=" + asset.files.webImage.url + " />";
       break;
     case "AUDIO":
     case "DOCUMENT":
