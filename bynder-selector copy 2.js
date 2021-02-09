@@ -2,6 +2,20 @@ var currentValue = null;
 var isDisabled = true;
 var config = null;
 
+
+function testIterateOverProperties(obj)
+{
+  var output;
+  for (var prop in obj) {
+    if (Object.prototype.hasOwnProperty.call(obj, prop)) {
+        output += prop + " = " +  obj.prop + " -- ";
+    }
+  }
+  //alert(output);
+  //alert(JSON.stringify(obj));
+}
+
+
 function updateDisabled(disabled) {
   const elements = $(".selector").add(".remove").add(".spacer");
   if (disabled) {
@@ -96,7 +110,7 @@ function imageTile($parent, item, remove) {
   updateSize();
 }
 
-function setupSelector(value) {
+function setupSelectorv2(value) {
   $('.clear').click(function() {
     updateValue(null);
   });
@@ -128,10 +142,47 @@ function setupSelector(value) {
             previewUrl: asset.thumbnails[config.previewDerivative || 'webimage'],
             webUrl: asset.thumbnails[config.webDerivative || 'webimage'],
             title: asset.name,
+            fullJSON: JSON.stringify(asset),
           });
           break;
       }
     }
+
+    updateValue(images);
+  });
+}
+
+
+function setupSelectorv2(value) {
+  $('.clear').click(function() {
+    updateValue(null);
+  });
+
+  if (value) {
+    currentValue = JSON.parse(value);
+    renderSelected(currentValue);
+  }
+  else {
+    renderSelected(null);
+  }
+
+  window.addEventListener('resize', updateSize);
+
+  document.addEventListener('BynderAddMedia', function (e) {
+    // The selected assets are found in the event detail property
+    const selectedAsset = e.detail;
+    //const asset = selectedAssets[0];
+
+    var images = currentValue || [];
+    images.push({
+      id: selectedAsset.id,
+      //previewUrl: asset.thumbnails[config.previewDerivative || 'webimage'],
+      //webUrl: asset.thumbnails[config.webDerivative || 'webimage'],
+      title: selectedAsset.name,
+      fullJSON: JSON.stringify(selectedAsset),
+    });
+
+    alert(images);
 
     updateValue(images);
   });
@@ -152,11 +203,12 @@ function initCustomElement() {
       // Setup with initial value and disabled state
       config = element.config || {};
 
+      const compactViewUrl = 'https://d8ejoa1fys2rk.cloudfront.net/5.0.5/modules/compactview/includes/js/client-1.4.0.min.js';
       if (config.bynderUrl) {
         $('#bynder-compactview').attr('data-defaultEnvironment', config.bynderUrl);
       }
       $('body').append(
-        '<script type="text/javascript" src="https://d8ejoa1fys2rk.cloudfront.net/modules/compactview/includes/js/client-1.4.0.min.js"></script>'
+        '<script type="text/javascript" src="https://d8ejoa1fys2rk.cloudfront.net/5.0.5/modules/compactview/includes/js/client-1.4.0.min.js"></script>'
       );
 
       updateDisabled(element.disabled);
@@ -174,4 +226,26 @@ function initCustomElement() {
   }
 }
 
-initCustomElement();
+
+//initCustomElementv2();
+
+function initCustomElementv2() {
+  try {
+    CustomElement.init((element, _context) => {
+      // Setup with initial value and disabled state
+      config = element.config || {};
+      updateDisabled(element.disabled);
+      setupSelectorv2(element.value);
+      updateSize();
+    });
+
+    // React on disabled changed (e.g. when publishing the item)
+    CustomElement.onDisabledChanged(updateDisabled);
+  } catch (err) {
+    // Initialization with Kentico Custom element API failed (page displayed outside of the Kentico UI)
+    console.error(err);
+    setupSelectorv2();
+    updateDisabled(true);
+  }
+
+}
