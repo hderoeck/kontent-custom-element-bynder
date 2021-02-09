@@ -47,17 +47,15 @@ function renderSelected(images) {
 function updateValue(asset) {
   // Send updated value to Kentico (send null in case of the empty string => element will not meet required condition).
   if (!isDisabled) {
-    if (asset && asset.length) {
-      currentValue = asset;
-      alert('Setting value of CustomElement to ');
-      alert(JSON.stringify(asset));
-      CustomElement.setValue(JSON.stringify(asset));
-    }
-    else {
-      currentValue = null;
-      CustomElement.setValue(null);
-      renderSelected(null);
-    }
+    currentValue = asset;
+    alert('Setting value of CustomElement to ');
+    alert(JSON.stringify(asset));
+    CustomElement.setValue(JSON.stringify(asset));
+  }
+  else {
+    currentValue = null;
+    CustomElement.setValue(null);
+    renderSelected(null);
   }
 }
 
