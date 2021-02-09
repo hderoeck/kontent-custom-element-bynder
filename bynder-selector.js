@@ -167,14 +167,12 @@ function initCustomElement() {
       // Setup with initial value and disabled state
       config = element.config || {};
 
-      //const compactViewUrl = 'https://d8ejoa1fys2rk.cloudfront.net/5.0.5/modules/compactview/bynder-compactview-2-latest.js';
       const compactViewUrl = 'https://d8ejoa1fys2rk.cloudfront.net/5.0.5/modules/compactview/includes/js/client-1.4.0.min.js';
-      // https://developer-docs.bynder.com/ui-components
       if (config.bynderUrl) {
         $('#bynder-compactview').attr('data-defaultEnvironment', config.bynderUrl);
       }
       $('body').append(
-        '<script type="text/javascript" src="'+compactViewUrl+'"></script>'
+        '<script type="text/javascript" src="https://d8ejoa1fys2rk.cloudfront.net/5.0.5/modules/compactview/includes/js/client-1.4.0.min.js"></script>'
       );
 
       updateDisabled(element.disabled);
@@ -191,5 +189,41 @@ function initCustomElement() {
     updateDisabled(true);
   }
 }
+function initCustomElement_v2() {
+  try {
+    CustomElement.init((element, _context) => {
+      // Setup with initial value and disabled state
+      config = element.config || {};
 
-initCustomElement();
+      const compactViewUrl = 'https://d8ejoa1fys2rk.cloudfront.net/5.0.5/modules/compactview/bynder-compactview-2-latest.js';
+      // https://developer-docs.bynder.com/ui-components
+      if (config.bynderUrl) {
+        $('#bynder-compactview').attr('data-defaultEnvironment', config.bynderUrl);
+      }
+      $('body').append(
+        '<script type="text/javascript" src="'+compactViewUrl+'"></script>'
+      );
+      $('body').append('BynderCompactView.open({');
+      $('body').append('          onSuccess: function (assets) {');
+      $('body').append('                 /* Do something with given asset array */ ');
+      $('body').append('           },');
+      $('body').append('           defaultDomain: "'+config.bynderUrl+'",');
+      $('body').append('           /* ... other options ... */');
+      $('body').append('})');
+
+      updateDisabled(element.disabled);
+      setupSelector(element.value);
+      updateSize();
+    });
+
+    // React on disabled changed (e.g. when publishing the item)
+    CustomElement.onDisabledChanged(updateDisabled);
+  } catch (err) {
+    // Initialization with Kentico Custom element API failed (page displayed outside of the Kentico UI)
+    console.error(err);
+    setupSelector();
+    updateDisabled(true);
+  }
+}
+
+initCustomElement_v2();
