@@ -12,7 +12,7 @@ function testIterateOverProperties(obj)
     }
   }
   //alert(output);
-  alert(JSON.stringify(obj));
+  //alert(JSON.stringify(obj));
 }
 
 
@@ -133,7 +133,7 @@ function setupSelector(value) {
 
     for (var i = 0; i < selectedAssets.length; i++) {
       const asset = selectedAssets[i];
-      testIterateOverProperties(asset);
+      //testIterateOverProperties(asset);
       switch (asset.type) {
         case 'image':
           // Avoid duplicates
@@ -143,6 +143,7 @@ function setupSelector(value) {
             previewUrl: asset.thumbnails[config.previewDerivative || 'webimage'],
             webUrl: asset.thumbnails[config.webDerivative || 'webimage'],
             title: asset.name,
+            fullJSON: JSON.stringify(asset),
           });
           break;
       }
