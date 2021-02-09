@@ -191,6 +191,8 @@ function initCustomElement() {
 }
 
 
+initCustomElement();
+
 function initCustomElementv2() {
   try {
     CustomElement.init((element, _context) => {
@@ -252,5 +254,3 @@ function openBynder(){
     }
   });
 };
-
-initCustomElementv2();
