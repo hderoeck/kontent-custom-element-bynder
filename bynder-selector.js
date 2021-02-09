@@ -224,7 +224,7 @@ function openBynder(){
       var importedAssetsContainer = document.getElementById(
         "bynder-selected"
       );
-      importedAssetsContainer.innerHTML = "Hello World <br />";
+      importedAssetsContainer.innerHTML = "";
 
       var asset = assets[0];
 
@@ -234,6 +234,7 @@ function openBynder(){
         case "IMAGE":
           importedAssetsContainer.innerHTML +=
             "<img src=" + additionalInfo.selectedFile.url + " />";
+            "<img src=" + asset.files.webImage.url + " />";
           return;
         case "AUDIO":
         case "DOCUMENT":
