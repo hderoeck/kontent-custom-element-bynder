@@ -114,24 +114,19 @@ function setupSelector(value) {
   document.addEventListener('BynderAddMedia', function (e) {
     // The selected assets are found in the event detail property
     const selectedAssets = e.detail;
+    const selectedAsset = selectedAssets[0];
+    
+    var images = currentValue;
 
-    var images = currentValue || [];
+    images.push({
+          id: selectedAsset.id,
+          //previewUrl: asset.thumbnails[config.previewDerivative || 'webimage'],
+          //webUrl: asset.thumbnails[config.webDerivative || 'webimage'],
+          title: selectedAsset.name,
+          fullJSON: JSON.stringify(selectedAsset),
 
-    for (var i = 0; i < selectedAssets.length; i++) {
-      const asset = selectedAssets[i];
-      switch (asset.type) {
-        case 'image':
-          // Avoid duplicates
-          images = images.filter(image => image.id !== asset.id);
-          images.push({
-            id: asset.id,
-            previewUrl: asset.thumbnails[config.previewDerivative || 'webimage'],
-            webUrl: asset.thumbnails[config.webDerivative || 'webimage'],
-            title: asset.name,
-          });
-          break;
-      }
-    }
+    });
+    
 
     updateValue(images);
   });
@@ -152,16 +147,9 @@ function initCustomElement() {
       // Setup with initial value and disabled state
       config = element.config || {};
 
-      if (config.bynderUrl) {
-        $('#bynder-compactview').attr('data-defaultEnvironment', config.bynderUrl);
-      }
-      $('body').append(
-        '<script type="text/javascript" src="https://d8ejoa1fys2rk.cloudfront.net/modules/compactview/includes/js/client-1.4.0.min.js"></script>'
-      );
-      
-      $('body').append(
-        '<script  type="text/javascript" src="https://d8ejoa1fys2rk.cloudfront.net/5.0.5/modules/compactview/bynder-compactview-2-latest.js"></script>'
-      );
+      //if (config.bynderUrl) {
+      //  $('#bynder-compactview').attr('data-defaultEnvironment', config.bynderUrl);
+      //}
       
 
       updateDisabled(element.disabled);
@@ -179,4 +167,50 @@ function initCustomElement() {
   }
 }
 
+function bynderOnSuccess(assets, additionalInfo) 
+{
+  var importedAssetsContainer = document.getElementById("importedAssets");
+  importedAssetsContainer.innerHTML = "";
+
+  asset = selectedAssets[i];
+
+  switch (asset.type) {
+    case "IMAGE":
+      importedAssetsContainer.innerHTML +=
+        "<img src=" + additionalInfo.selectedFile.url + " />";
+      break;
+    case "AUDIO":
+    case "DOCUMENT":
+      importedAssetsContainer.innerHTML +=
+        "<img src=" + asset.files.webImage.url + " />";
+      break;
+    case "VIDEO":
+      importedAssetsContainer.innerHTML +=
+        '<video width="640" height="480" controls>' +
+        '<source src="' +
+        asset.previewUrls[0] +
+        '" type="video/webm">' +
+        "</video>";
+      break;
+  }
+}
+
+function openBynder()
+{
+  BynderCompactView.open({
+    language: "en_US",
+    // Renamed from "multi".
+    mode: "SingleSelect",
+    assetTypes: ["IMAGE", "VIDEO", "DOCUMENT"],
+    // With `container` set, CV is mounted inside given DOM element
+    // instead of opening as a modal dialog.
+    portal: { url: "", editable: "" },
+    // Selected assets are passed to given `onSuccess` callback which
+    // replaces `BynderAddMedia` event.
+    // `additionalInfo` argument is only relevant when `mode` is set to
+    // `SingleSelectFile`.
+    onSuccess: bynderOnSuccess
+  });
+}
+      
 initCustomElement();

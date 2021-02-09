@@ -137,20 +137,7 @@
     <!-- Custom element HTML -->
     <div class="selector">
       <button class="clear" type="button">Clear</button>
-      <div
-        id="bynder-compactview"
-        data-assetTypes="image"
-        data-autoload="false"
-        data-button="Add images"
-        data-collections="true"
-        data-defaultEnvironment=""
-        data-fullScreen="false"
-        data-header="true"
-        data-language="en_US"
-        data-mode="multi"
-        data-zindex="300"
-      ></div>
-      <button class="clear" onclick="openBynder()">Open Compact View</button>
+      <button class="clear" onclick="openBynder()">Select asset</button>
 
       <img class="logo" src="bynder_logo.png" alt="Bynder" title="Bynder" />
     </div>
@@ -164,50 +151,7 @@
     <div id="importedAssets"></div>
     
     <script>
-      function onSuccess(assets, additionalInfo) {
-        var importedAssetsContainer = document.getElementById("importedAssets");
-        importedAssetsContainer.innerHTML = "";
-
-          asset = selectedAssets[i];
-
-          switch (asset.type) {
-            case "IMAGE":
-              importedAssetsContainer.innerHTML +=
-                "<img src=" + additionalInfo.selectedFile.url + " />";
-              break;
-            case "AUDIO":
-            case "DOCUMENT":
-              importedAssetsContainer.innerHTML +=
-                "<img src=" + asset.files.webImage.url + " />";
-              break;
-            case "VIDEO":
-              importedAssetsContainer.innerHTML +=
-                '<video width="640" height="480" controls>' +
-                '<source src="' +
-                asset.previewUrls[0] +
-                '" type="video/webm">' +
-                "</video>";
-              break;
-          }
-        }
-      
-        function openBynder()
-        {
-          BynderCompactView.open({
-            language: "en_US",
-            // Renamed from "multi".
-            mode: "SingleSelect",
-            assetTypes: ["IMAGE", "VIDEO", "DOCUMENT"],
-            // With `container` set, CV is mounted inside given DOM element
-            // instead of opening as a modal dialog.
-            portal: { url: "", editable: "" },
-            // Selected assets are passed to given `onSuccess` callback which
-            // replaces `BynderAddMedia` event.
-            // `additionalInfo` argument is only relevant when `mode` is set to
-            // `SingleSelectFile`.
-            onSuccess: onSuccess
-          });
-        }
+    
     </script>
 
   </body>
