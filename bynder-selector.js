@@ -126,7 +126,6 @@ function setupSelector(value) {
           //webUrl: asset.thumbnails[config.webDerivative || 'webimage'],
           title: selectedAsset.name,
           fullJSON: JSON.stringify(selectedAsset),
-
     });
     
 
@@ -171,6 +170,7 @@ function initCustomElement() {
 
 function bynderOnSuccess(assets, additionalInfo) 
 {
+  alert('hell');
   var importedAssetsContainer = document.getElementById("importedAssets");
   importedAssetsContainer.innerHTML = "";
 
@@ -200,7 +200,6 @@ function bynderOnSuccess(assets, additionalInfo)
 
 function openBynder()
 {
-  alert('hello');
   BynderCompactView.open({
     language: "en_US",
     mode: "SingleSelect",
