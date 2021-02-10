@@ -48,8 +48,8 @@ function updateValue(asset) {
   // Send updated value to Kentico (send null in case of the empty string => element will not meet required condition).
   if (!isDisabled) {
     currentValue = asset;
-    alert('Setting value of CustomElement to ');
-    alert(JSON.stringify(asset));
+    //alert('Setting value of CustomElement to ');
+    //alert(JSON.stringify(asset));
     CustomElement.setValue(JSON.stringify(asset));
   }
   else {
@@ -96,7 +96,7 @@ function imageTile($parent, item, remove) {
 }
 
 function setupSelector(value) {
-  alert('renderSelected');
+  //alert('renderSelected');
 
   $('.clear').click(function() {
     updateValue(null);
